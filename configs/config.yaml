@@ -1,0 +1,72 @@
+project:
+  name: COT-IQA-Agent
+  version: 0.1.0
+  environment: development
+
+paths:
+  paper_dir: assets/papers
+  test_image_dir: assets/test_images
+  vector_store_dir: rag/vector_store
+  report_dir: outputs/reports
+  log_dir: outputs/logs
+
+llm:
+  provider: ${LLM_PROVIDER}
+  model: ${LLM_MODEL}
+  api_key: ${LLM_API_KEY}
+  base_url: ${LLM_BASE_URL}
+  temperature: 0.0
+  timeout: 60
+  max_retries: 2
+
+cot_iqa:
+  base_model_path: ${COT_IQA_BASE_MODEL_PATH}
+  adapter_path: ${COT_IQA_ADAPTER_PATH}
+  device: auto
+  dtype: bfloat16
+  max_new_tokens: 1024
+  trust_remote_code: true
+
+parser:
+  strict_mode: true
+  keep_raw_output: true
+  required_fields:
+    - localization
+    - attribution
+    - diagnosis
+    - restoration_suggestion
+    - expert_routing
+    - quality_prediction
+
+pyiqa:
+  enabled: true
+  device: auto
+  metrics:
+    - niqe
+    - brisque
+
+rag:
+  enabled: true
+  embedding_model: ${EMBEDDING_MODEL}
+  chunk_size: 800
+  chunk_overlap: 120
+  top_k: 4
+  normalize_embeddings: true
+  runtime_device: cpu
+
+agent:
+  max_steps: 8
+  enable_rag: true
+  enable_pyiqa: true
+  enable_verification: true
+  save_intermediate_results: true
+
+output:
+  report_format: markdown
+  save_json: true
+  save_logs: true
+
+ui:
+  host: 0.0.0.0
+  port: 7860
+  share: false

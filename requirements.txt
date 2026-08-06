@@ -1,0 +1,35 @@
+# Environment and configuration
+python-dotenv
+pyyaml
+
+# Data processing
+numpy
+pandas
+pillow
+
+# LLM and Agent
+langchain
+langchain-core
+langgraph
+openai
+
+# RAG
+sentence-transformers==5.6.1
+faiss-cpu
+
+# API and UI
+fastapi
+uvicorn[standard]
+python-multipart
+gradio
+markdown
+bleach
+
+# Utilities
+pydantic
+loguru
+tqdm
+
+# PDF parsing
+pypdf==6.14.2
+pymupdf==1.28.0

@@ -1,0 +1,60 @@
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+
+# Python cache and test cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Runtime outputs
+outputs/logs/*
+outputs/reports/*
+
+# RAG vector database
+rag/vector_store/*
+
+# Copyrighted or local paper corpus
+assets/papers/**/*.pdf
+assets/papers/**/*.docx
+assets/paper_candidates/
+
+# Model weights and checkpoints
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+adapter_model.bin
+pytorch_model*.bin
+checkpoints/
+
+# Editor backups
+*.before_*
+*.bak
+*.bak_*
+*.orig
+*~
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+
+# Keep required empty directories
+!outputs/logs/.gitkeep
+!outputs/reports/.gitkeep
+!rag/vector_store/.gitkeep
+!assets/papers/.gitkeep
