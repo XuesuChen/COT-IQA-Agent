@@ -73,24 +73,62 @@ COT-IQA-Agent 是一个面向图像质量评估的多模态 Agent 工程项目�
 
 ## 3. Demo
 
-### FastAPI / Swagger
+### Single-Image Quality Analysis
 
-系统提供完整的 REST API，包括健康检查、单图分析、双图比较、报告查询、HTML 报告查看以及 JSON / Markdown 报告下载。
+单图分析模块联合 PyIQA、CoT-IQA 与论文 RAG，对输入图像执行客观质量评估、失真定位与归因、多维质量诊断、修复建议、专家路由和结果验证。
 
 <p align="center">
-  <img src="assets/demo/api_swagger.png"
-       alt="COT-IQA-Agent FastAPI Swagger"
-       width="95%">
+  <img src="assets/demo/gradio_single_overview.png"
+       alt="Single-image analysis overview"
+       width="90%">
+</p>
+
+<p align="center">
+  <img src="assets/demo/gradio_single_diagnosis.png"
+       alt="Single-image structured diagnosis"
+       width="90%">
+</p>
+
+<p align="center">
+  <img src="assets/demo/gradio_single_evidence.png"
+       alt="Single-image evidence and verification"
+       width="90%">
+</p>
+
+### Two-Image Quality Comparison
+
+双图比较模块综合 PyIQA 客观指标、CoT-IQA 结构化诊断和辅助 MOS 证据，通过多证据融合输出最终质量判断，并显式展示证据投票、冲突分析、论文依据与验证结果。
+
+<p align="center">
+  <img src="assets/demo/gradio_comparison_overview.png"
+       alt="Two-image comparison overview"
+       width="90%">
+</p>
+
+<p align="center">
+  <img src="assets/demo/gradio_comparison_evidence.png"
+       alt="Two-image comparison evidence"
+       width="90%">
 </p>
 
 ### Structured IQA Report
 
-报告将 PyIQA 客观指标与 CoT-IQA 结构化推理结合，展示失真定位、失真归因、多维质量诊断和针对性的图像修复建议。
+系统可生成结构化 HTML 分析报告，集中展示 PyIQA 客观指标、CoT-IQA 推理结果、失真诊断与针对性的修复建议。
 
 <p align="center">
   <img src="assets/demo/report_html.png"
        alt="COT-IQA-Agent Structured IQA Report"
-       width="95%">
+       width="90%">
+</p>
+
+### FastAPI / Swagger
+
+系统同时提供 REST API，包括健康检查、单图分析、双图比较、报告查询、HTML 报告查看以及 JSON / Markdown 报告下载。
+
+<p align="center">
+  <img src="assets/demo/api_swagger.png"
+       alt="COT-IQA-Agent FastAPI Swagger"
+       width="90%">
 </p>
 
 ---
