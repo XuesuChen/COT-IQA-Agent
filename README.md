@@ -71,7 +71,36 @@ COT-IQA-Agent 是一个面向图像质量评估的多模态 Agent 工程项目�
 
 ---
 
-## 3. 系统架构
+## 3. Demo
+
+### FastAPI / Swagger
+
+<p align="center">
+  <img
+    src="assets/demo/api_swagger.png"
+    alt="COT-IQA-Agent FastAPI Swagger"
+    width="95%"
+  />
+</p>
+
+系统提供完整的 REST API，包括健康检查、单图分析、双图比较、报告查询、HTML 报告查看以及 JSON / Markdown 报告下载。
+
+### Structured IQA Report
+
+<p align="center">
+  <img
+    src="assets/demo/report_html.png"
+    alt="COT-IQA-Agent structured IQA report"
+    width="95%"
+  />
+</p>
+
+报告将 PyIQA 客观指标与 CoT-IQA 结构化推理结合，展示失真定位、失真归因、多维质量诊断和针对性的图像修复建议。
+
+---
+
+## 4. 系统架构
+
 
 ```mermaid
 flowchart LR
@@ -103,7 +132,7 @@ flowchart LR
 
 ---
 
-## 4. 技术栈
+## 5. 技术栈
 
 | 模块 | 技术 |
 |---|---|
@@ -126,7 +155,7 @@ flowchart LR
 
 ---
 
-## 5. CoT-IQA 推理结构
+## 6. CoT-IQA 推理结构
 
 CoT-IQA 的结构化推理链由六个阶段构成。
 
@@ -206,7 +235,7 @@ Parser 会对以下内容执行校验：
 
 ---
 
-## 6. Agent 工作流
+## 7. Agent 工作流
 
 ### 6.1 单图工作流
 
@@ -266,7 +295,7 @@ Comparison Report Generation
 
 ---
 
-## 7. 多证据双图决策
+## 8. 多证据双图决策
 
 双图质量比较不直接依赖单一模型分数。
 
@@ -305,7 +334,7 @@ Comparison Report Generation
 
 ---
 
-## 8. 论文 RAG
+## 9. 论文 RAG
 
 系统支持将 IQA 相关论文构建为本地知识库。
 
@@ -335,7 +364,7 @@ RAG 主要用于：
 
 ---
 
-## 9. 项目结构
+## 10. 项目结构
 
 ```text
 COT-IQA-Agent/
@@ -410,7 +439,7 @@ COT-IQA-Agent/
 
 ---
 
-## 10. 环境要求
+## 11. 环境要求
 
 当前验证环境：
 
@@ -439,7 +468,7 @@ COT-IQA-Agent/
 
 ---
 
-## 11. 安装
+## 12. 安装
 
 ### 11.1 克隆项目
 
@@ -475,7 +504,7 @@ pip install -r requirements-dev.txt
 
 ---
 
-## 12. 环境变量配置
+## 13. 环境变量配置
 
 复制环境变量模板：
 
@@ -525,7 +554,7 @@ adapter_model.safetensors
 
 ---
 
-## 13. 项目配置
+## 14. 项目配置
 
 主配置文件：
 
@@ -573,7 +602,7 @@ rag:
 
 ---
 
-## 14. 准备模型
+## 15. 准备模型
 
 本项目不会在 Git 仓库中提交模型权重。
 
@@ -594,7 +623,7 @@ COT_IQA_ADAPTER_PATH=/home/user/checkpoints/cot-iqa/checkpoint-216
 
 ---
 
-## 15. 构建论文 RAG
+## 16. 构建论文 RAG
 
 ### 15.1 放置论文
 
@@ -678,7 +707,7 @@ python rag/build_index.py \
 
 ---
 
-## 16. 项目检查
+## 17. 项目检查
 
 运行：
 
@@ -707,7 +736,7 @@ COT-IQA-Agent project check: PASSED
 
 ---
 
-## 17. 启动 Gradio
+## 18. 启动 Gradio
 
 运行：
 
@@ -761,7 +790,7 @@ Gradio 页面包含两个功能标签：
 
 ---
 
-## 18. 启动 FastAPI
+## 19. 启动 FastAPI
 
 运行：
 
@@ -792,7 +821,7 @@ FastAPI 同样使用共享推理锁，单 GPU 请求默认串行执行。
 
 ---
 
-## 19. REST API
+## 20. REST API
 
 ### 19.1 服务信息
 
@@ -911,7 +940,7 @@ GET /api/v1/reports/{request_id}/download/markdown
 
 ---
 
-## 20. API 返回设计
+## 21. API 返回设计
 
 单图和双图接口默认返回精简结构，避免 Swagger 和客户端接收过大的响应体。
 
@@ -970,7 +999,7 @@ GET /api/v1/reports/{request_id}/download/markdown
 
 ---
 
-## 21. 报告系统
+## 22. 报告系统
 
 每次成功请求都会生成报告。
 
@@ -1011,7 +1040,7 @@ outputs/reports/
 
 ---
 
-## 22. 结果验证
+## 23. 结果验证
 
 ### 22.1 单图验证
 
@@ -1049,7 +1078,7 @@ outputs/reports/
 
 ---
 
-## 23. 自动化测试
+## 24. 自动化测试
 
 运行：
 
@@ -1097,7 +1126,7 @@ python -m pytest -q
 
 ---
 
-## 24. 模型冒烟测试
+## 25. 模型冒烟测试
 
 项目保留模型冒烟测试脚本：
 
@@ -1119,7 +1148,7 @@ scripts/smoke_test_cot_iqa.py
 
 ---
 
-## 25. 运行设备策略
+## 26. 运行设备策略
 
 ### CoT-IQA
 
@@ -1164,7 +1193,7 @@ CUDA
 
 ---
 
-## 26. 已知限制
+## 27. 已知限制
 
 ### 26.1 无参考 IQA 指标限制
 
@@ -1242,7 +1271,7 @@ NIQE 和 BRISQUE 基于自然图像统计特征，会受到以下因素影响：
 
 ---
 
-## 27. 隐私与仓库规范
+## 28. 隐私与仓库规范
 
 公开仓库不会提交以下内容：
 
@@ -1279,7 +1308,7 @@ outputs/reports/*
 
 ---
 
-## 28. 推荐运行流程
+## 29. 推荐运行流程
 
 ### 第一次运行
 
@@ -1324,7 +1353,7 @@ git status --short
 
 ---
 
-## 29. 当前项目状态
+## 30. 当前项目状态
 
 当前版本：
 
@@ -1369,7 +1398,7 @@ git status --short
 
 ---
 
-## 30. 后续计划
+## 31. 后续计划
 
 后续可以继续扩展：
 
@@ -1397,7 +1426,7 @@ git status --short
 
 ---
 
-## 31. License
+## 32. License
 
 本项目代码的开源协议将在正式发布前补充。
 
@@ -1405,7 +1434,7 @@ git status --short
 
 ---
 
-## 32. Acknowledgements
+## 33. Acknowledgements
 
 本项目使用或参考以下开源生态：
 
