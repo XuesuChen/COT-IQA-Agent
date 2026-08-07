@@ -154,3 +154,46 @@ def test_comparison_tie_summary():
     assert "本项不参与主证据投票" in output
     assert "2/2" in output
     assert "未提供 质量更好" not in output
+
+
+def test_single_summary_accepts_string_errors():
+    """String-form workflow errors must not crash the UI formatter."""
+
+    result = {
+        "request_id": "req_error123",
+        "route": "single_image",
+        "errors": [
+            (
+                "CoT-IQA loading or inference failed: "
+                "TypeError: unhashable type: 'set'"
+            )
+        ],
+    }
+
+    output = _format_single_summary(result)
+
+    assert "工作流错误" in output
+    assert "CoT-IQA loading or inference failed" in output
+    assert "unhashable type" in output
+
+
+def test_localized_primary_impairment_translation():
+    """Parser attribution using 'localized' must render in Chinese."""
+
+    from ui.gradio_app import _render_attribution
+
+    lines = _render_attribution(
+        {
+            "degradation_count": 2,
+            "primary_impairment": (
+                "localized jpeg compression"
+            ),
+        }
+    )
+
+    output = "\n".join(lines)
+
+    assert "2 种主要退化" in output
+    assert "JPEG 压缩伪影" in output
+    assert "局部" in output
+    assert "localized jpeg compression" not in output

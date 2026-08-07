@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import traceback
+
 import json
 import sys
 from pathlib import Path
@@ -177,6 +179,7 @@ _FIELD_LABELS = {
 
 _DISTORTION_LABELS = {
     "jpeg_compression": "JPEG 压缩伪影",
+    "localized jpeg compression": "局部 JPEG 压缩伪影",
     "jpeg2000_compression": "JPEG2000 压缩伪影",
     "gaussian_blur": "高斯模糊",
     "motion_blur": "运动模糊",
@@ -241,6 +244,14 @@ _WARNING_LABELS = {
 
 
 _DESCRIPTION_LABELS = {
+    "Nearly no visible blur":
+        "几乎没有可见模糊。",
+    "Significant blur, fine details lost":
+        "存在明显模糊，部分细节已经丢失。",
+    "Severe block artifacts dominate the image":
+        "图像中存在严重的块状压缩伪影。",
+    "Minimal composite artifacts":
+        "综合伪影较轻，整体影响较小。",
     "Slight edge softening in some regions":
         "部分区域存在轻微的边缘软化。",
     "Nearly noise-free, clean image":
@@ -523,6 +534,9 @@ def _render_attribution(
         if primary_text.lower().startswith("global "):
             scope = "全局"
             primary_text = primary_text[7:]
+        elif primary_text.lower().startswith("localized "):
+            scope = "局部"
+            primary_text = primary_text[10:]
         elif primary_text.lower().startswith("local "):
             scope = "局部"
             primary_text = primary_text[6:]
@@ -1041,10 +1055,20 @@ def _format_single_summary(
         )
 
         for error in errors:
-            lines.append(
-                f"- {error.get('node', 'unknown')}："
-                f"{error.get('message', error)}"
-            )
+            if isinstance(error, dict):
+                node = error.get("node", "unknown")
+                message = error.get(
+                    "message",
+                    error.get("error", str(error)),
+                )
+
+                lines.append(
+                    f"- {node}：{message}"
+                )
+            else:
+                lines.append(
+                    f"- {str(error)}"
+                )
 
     return "\n".join(lines)
 
@@ -1435,10 +1459,20 @@ def _format_comparison_summary(
         )
 
         for error in errors:
-            lines.append(
-                f"- {error.get('node', 'unknown')}："
-                f"{error.get('message', error)}"
-            )
+            if isinstance(error, dict):
+                node = error.get("node", "unknown")
+                message = error.get(
+                    "message",
+                    error.get("error", str(error)),
+                )
+
+                lines.append(
+                    f"- {node}：{message}"
+                )
+            else:
+                lines.append(
+                    f"- {str(error)}"
+                )
 
     return "\n".join(lines)
 
@@ -1480,6 +1514,11 @@ def analyze_single_image(
         )
 
     except Exception as exc:
+        print("\n===== GRADIO WORKFLOW ERROR =====")
+        print(f"{type(exc).__name__}: {exc}")
+        traceback.print_exc()
+        print("===== END GRADIO WORKFLOW ERROR =====\n")
+
         error_data = {
             "type": type(exc).__name__,
             "message": str(exc),
@@ -1533,6 +1572,11 @@ def compare_two_images(
         )
 
     except Exception as exc:
+        print("\n===== GRADIO WORKFLOW ERROR =====")
+        print(f"{type(exc).__name__}: {exc}")
+        traceback.print_exc()
+        print("===== END GRADIO WORKFLOW ERROR =====\n")
+
         error_data = {
             "type": type(exc).__name__,
             "message": str(exc),
