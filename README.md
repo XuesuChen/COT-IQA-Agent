@@ -75,27 +75,23 @@ COT-IQA-Agent 是一个面向图像质量评估的多模态 Agent 工程项目�
 
 ### FastAPI / Swagger
 
-<p align="center">
-  <img
-    src="assets/demo/api_swagger.png"
-    alt="COT-IQA-Agent FastAPI Swagger"
-    width="95%"
-  />
-</p>
-
 系统提供完整的 REST API，包括健康检查、单图分析、双图比较、报告查询、HTML 报告查看以及 JSON / Markdown 报告下载。
+
+<p align="center">
+  <img src="assets/demo/api_swagger.png"
+       alt="COT-IQA-Agent FastAPI Swagger"
+       width="95%">
+</p>
 
 ### Structured IQA Report
 
-<p align="center">
-  <img
-    src="assets/demo/report_html.png"
-    alt="COT-IQA-Agent structured IQA report"
-    width="95%"
-  />
-</p>
-
 报告将 PyIQA 客观指标与 CoT-IQA 结构化推理结合，展示失真定位、失真归因、多维质量诊断和针对性的图像修复建议。
+
+<p align="center">
+  <img src="assets/demo/report_html.png"
+       alt="COT-IQA-Agent Structured IQA Report"
+       width="95%">
+</p>
 
 ---
 
